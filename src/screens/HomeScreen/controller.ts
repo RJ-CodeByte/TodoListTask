@@ -23,14 +23,25 @@ export const useHomeController = () =>{
           setTasks(todoList)
     }, [todoList])
     
-
+/* check if selected status then filter status vise if status selected and search then search based on status 
+    if no status then search based on search text
+*/
     const filteredTasks = useMemo(() => {
       if(selectedStatus){
+        if(searchText.length>0){
+          return tasks.filter(
+                (task) => task.status === selectedStatus &&
+                  task.title.toLowerCase().includes(searchText.toLowerCase()) ||
+                  task.description.toLowerCase().includes(searchText.toLowerCase())
+              );
+        }else{
         return tasks.filter(
           (task) =>
             task.status === selectedStatus
         );
-      }else{
+      }
+      }
+      else{
         return tasks.filter(
           (task) =>
             task.title.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -40,17 +51,6 @@ export const useHomeController = () =>{
       
     }, [tasks, searchText,selectedStatus]);
 
-  //   const filteredTasks = useMemo(() => {
-  //     return tasks.filter((task) => {
-  //         const matchesSearchText =
-  //             task.title.toLowerCase().includes(searchText.toLowerCase()) ||
-  //             task.description.toLowerCase().includes(searchText.toLowerCase());
-  //         const matchesStatus =
-  //             selectedStatus === null || task.status === selectedStatus;
-
-  //         return matchesSearchText || matchesStatus;
-  //     });
-  // }, [tasks, searchText, selectedStatus]);
 
 
  // Function to handle search

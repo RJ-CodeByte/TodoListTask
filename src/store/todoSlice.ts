@@ -32,8 +32,7 @@ const todoDataSlice = createSlice({
         todos: todoList
       };
     },
-    editTask: (state, action: PayloadAction<Partial<ITodo> >) => {
-      
+    editTask: (state, action: PayloadAction<Partial<ITodo> >) => {      
       const taskIndex = state.todos.findIndex((todo) => todo.id === action.payload.id);
       if (taskIndex !== -1) {
         state.todos[taskIndex] = {

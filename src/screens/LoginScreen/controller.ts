@@ -31,12 +31,6 @@ export const useLoginController = () => {
         const decoded = await decode(dummyToken, SECRET_KEY, {
           skipValidation: true,
         });
-        console.log(
-          '🚀 ~ verifyLoginToken ~ decoded:',
-          decoded,
-          formik.values.email,
-        );
-
         if (
           decoded.payload.email === formik.values.email &&
           decoded.payload.password === formik.values.password
